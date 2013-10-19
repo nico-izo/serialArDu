@@ -4,8 +4,11 @@
 #include <QMainWindow>
 #include <QtSerialPort/QSerialPort>
 #include <QDebug>
+#include <QMessageBox>
 #include "terminal.h"
 #include "commandinput.h"
+#include "wasdinput.h"
+#include "ardusettings.h"
 
 namespace Ui {
 class MainWindow;
@@ -21,14 +24,25 @@ class MainWindow : public QMainWindow
 public:
 	explicit MainWindow(QWidget *parent = 0);
 	~MainWindow();
-	
+
 private:
-	Ui::MainWindow *ui;
 	Terminal *terminal;
 	CommandInput *commandInput;
+	WasdInput *wasdInput;
+	Ui::MainWindow *ui;
+	ArDuSettings *settings;
+	void initSignals();
+	QSerialPort *serial;
+	void disableWasd();
+	void enableWasd();
 
 private slots:
 	void writeData(const QByteArray &data);
+	void writeQuietData(const QByteArray &data);
+	void readData();
+	void handleError(QSerialPort::SerialPortError error);
+	void openSerialPort();
+	void closeSerialPort();
 
 };
 

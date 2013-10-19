@@ -6,8 +6,13 @@
 class Terminal : public QPlainTextEdit
 {
 	Q_OBJECT
+
+signals:
+	void sendData(const QByteArray &data);
+
 public:
 	explicit Terminal(QWidget *parent = 0);
+	void putData(const QByteArray &data, bool external);
 	
 protected:
 	virtual void keyPressEvent(QKeyEvent *e);

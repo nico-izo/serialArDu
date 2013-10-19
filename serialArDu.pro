@@ -17,12 +17,14 @@ SOURCES += main.cpp\
         mainwindow.cpp \
     terminal.cpp \
     commandinput.cpp \
-    ardusettings.cpp
+    ardusettings.cpp \
+    wasdinput.cpp
 
 HEADERS  += mainwindow.h \
     terminal.h \
     commandinput.h \
-    ardusettings.h
+    ardusettings.h \
+    wasdinput.h
 
 FORMS    += mainwindow.ui \
     ardusettings.ui
