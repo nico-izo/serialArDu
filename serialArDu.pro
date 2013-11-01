@@ -6,6 +6,7 @@
 
 QT       += core gui widgets
 QT += serialport
+QT += opengl
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -18,13 +19,15 @@ SOURCES += main.cpp\
     terminal.cpp \
     commandinput.cpp \
     ardusettings.cpp \
-    wasdinput.cpp
+    wasdinput.cpp \
+    roverwidget.cpp
 
 HEADERS  += mainwindow.h \
     terminal.h \
     commandinput.h \
     ardusettings.h \
-    wasdinput.h
+    wasdinput.h \
+    roverwidget.h
 
 FORMS    += mainwindow.ui \
     ardusettings.ui

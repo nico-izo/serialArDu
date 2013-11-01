@@ -10,6 +10,8 @@
 #include "wasdinput.h"
 #include "ardusettings.h"
 
+#include "roverwidget.h"
+
 namespace Ui {
 class MainWindow;
 }
@@ -31,10 +33,13 @@ private:
 	WasdInput *wasdInput;
 	Ui::MainWindow *ui;
 	ArDuSettings *settings;
+	RoverWidget *rovermodel;
 	void initSignals();
 	QSerialPort *serial;
 	void disableWasd();
 	void enableWasd();
+	QString rotation;
+	void updateRotation();
 
 private slots:
 	void writeData(const QByteArray &data);
@@ -43,6 +48,7 @@ private slots:
 	void handleError(QSerialPort::SerialPortError error);
 	void openSerialPort();
 	void closeSerialPort();
+	void open3Dmodel();
 
 };
 

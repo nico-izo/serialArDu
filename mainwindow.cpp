@@ -5,11 +5,15 @@ MainWindow::MainWindow(QWidget *parent) :
 	QMainWindow(parent),
 	ui(new Ui::MainWindow)
 {
+	rotation = "";
 	terminal = new Terminal(this);
 	commandInput = new CommandInput(this);
 	wasdInput = new WasdInput(this);
 	settings = new ArDuSettings(this);
 	serial = new QSerialPort(this);
+
+	rovermodel = new RoverWidget();
+
 	ui->setupUi(this);
 	wasdInput->setButtons(ui->W, ui->A, ui->S, ui->D);
 	ui->grid->addWidget(terminal, 0, 0, 1, 0);
@@ -46,6 +50,7 @@ void MainWindow::initSignals()
 	connect(ui->actionDisconnect, SIGNAL(triggered()), this, SLOT(closeSerialPort()));
 	connect(ui->actionQuit, SIGNAL(triggered()), this, SLOT(close()));
 	connect(ui->actionClear, SIGNAL(triggered()), terminal, SLOT(clear()));
+	connect(ui->actionOpen3D, SIGNAL(triggered()), this, SLOT(open3Dmodel()));
 	//connect(ui->actionAbout, SIGNAL(triggered()), this, SLOT(about()));
 }
 
@@ -92,6 +97,34 @@ void MainWindow::enableWasd()
 void MainWindow::readData()
 {
 	QByteArray data = serial->readAll();
+	if(data.contains('^') || !rotation.isEmpty())
+	{
+		if(data.contains('^'))
+			for(int i = data.indexOf('^'); i < data.length(); ++i)
+			{
+				if(data[i] == '^')
+					continue;
+				if(data[i] == '#')
+				{
+					updateRotation();
+					break;
+				}
+
+				rotation += data[i];
+			}
+		else if(!rotation.isEmpty())
+			for(int i = 0; i < data.length(); ++i)
+			{
+				if(data[i] == '#')
+				{
+					updateRotation();
+					break;
+				}
+
+				rotation += data[i];
+			}
+	}
+
 	terminal->putData(data, true);
 }
 
@@ -134,4 +167,20 @@ void MainWindow::openSerialPort()
 
 		ui->statusBar->showMessage(tr("Configure error"));
 	}
+}
+
+void MainWindow::open3Dmodel()
+{
+	rovermodel->resize(800, 600);
+	rovermodel->show();
+}
+
+void MainWindow::updateRotation()
+{
+	qDebug() << rotation;
+	QStringList params = rotation.split(" ");
+	//qDebug() << params[2].toDouble() << "HEY NANA \n";
+	QQuaternion quat(params[2].toDouble(), params[3].toDouble(), params[4].toDouble(), params[5].toDouble());
+	rovermodel->rotateModel(quat);
+	rotation = "";
 }

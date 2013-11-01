@@ -43,6 +43,6 @@ void Terminal::putData(const QByteArray &data, bool external)
 {
 	insertPlainText(QString(data));
 
-	//QScrollBar *bar = verticalScrollBar();
-	//bar->setValue(bar->maximum());
+	QScrollBar *bar = verticalScrollBar();
+	bar->setValue(bar->maximum());
 }
