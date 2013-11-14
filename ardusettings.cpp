@@ -118,3 +118,11 @@ void ArDuSettings::apply()
 	hide();
 }
 
+void ArDuSettings::show()
+{
+	QDialog::show();
+
+	fillPortsParams();
+	fillPortsInfo();
+}
+

@@ -40,6 +40,7 @@ private:
 	void enableWasd();
 	QString rotation;
 	void updateRotation();
+	QMessageBox *_error;
 
 private slots:
 	void writeData(const QByteArray &data);

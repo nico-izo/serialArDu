@@ -35,13 +35,7 @@ void RoverWidget::paintGL(){
 
 	glMatrixMode(GL_MODELVIEW);
 		glLoadIdentity();
-		glTranslatef(0.0f,0.0f,-20.0f); //move along z-axis
-		//glRotatef(30.0,0.0,1.0,0.0); //rotate 30 degress around y-axis
-		//glRotatef(15.0,1.0,0.0,0.0); //rotate 15 degress around x-axis
-
-		//QQuaternion test(0.94, -0.01, -0.26, -0.22);
-		//QMatrix4x4 matrix;
-		//matrix.rotate(test);
+		glTranslatef(0.0f,0.0f,-20.0f);
 		glMultMatrixf(rot.constData());
 
 	/* create 3D-Cube */

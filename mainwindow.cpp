@@ -32,6 +32,8 @@ MainWindow::MainWindow(QWidget *parent) :
 	ui->actionDisconnect->setEnabled(false);
 	disableWasd();
 	commandInput->setEnabled(false);
+
+	_error = new QMessageBox(this);
 }
 
 MainWindow::~MainWindow()
@@ -131,8 +133,13 @@ void MainWindow::readData()
 void MainWindow::handleError(QSerialPort::SerialPortError error)
 {
 	if (error == QSerialPort::ResourceError) {
-		QMessageBox::critical(this, tr("Critical Error"), serial->errorString());
+		_error->setWindowTitle(tr("Critical Error"));
+		_error->setInformativeText(serial->errorString());
+		if(_error->isHidden())
+			_error->show();
+
 		closeSerialPort();
+		serial->clearError();
 	}
 }
 

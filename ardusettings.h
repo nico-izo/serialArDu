@@ -32,6 +32,8 @@ public:
 	};
 
 	Settings settings() const;
+public slots:
+	void show();
 private:
 	Ui::ArDuSettings *ui;
 	void fillPortsParams();
