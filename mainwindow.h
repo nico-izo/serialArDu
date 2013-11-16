@@ -50,6 +50,7 @@ private slots:
 	void openSerialPort();
 	void closeSerialPort();
 	void open3Dmodel();
+	void about();
 
 };
 

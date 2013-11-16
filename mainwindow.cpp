@@ -53,7 +53,7 @@ void MainWindow::initSignals()
 	connect(ui->actionQuit, SIGNAL(triggered()), this, SLOT(close()));
 	connect(ui->actionClear, SIGNAL(triggered()), terminal, SLOT(clear()));
 	connect(ui->actionOpen3D, SIGNAL(triggered()), this, SLOT(open3Dmodel()));
-	//connect(ui->actionAbout, SIGNAL(triggered()), this, SLOT(about()));
+	connect(ui->actionAbout, SIGNAL(triggered()), this, SLOT(about()));
 }
 
 void MainWindow::writeData(const QByteArray &data)
@@ -190,4 +190,9 @@ void MainWindow::updateRotation()
 	QQuaternion quat(params[2].toDouble(), params[3].toDouble(), params[4].toDouble(), params[5].toDouble());
 	rovermodel->rotateModel(quat);
 	rotation = "";
+}
+
+void MainWindow::about()
+{
+	QMessageBox::about(this, "About serialArDu", "Simple bla-bla-bla. I really don't know what to write here!");
 }

@@ -29,7 +29,6 @@ void RoverWidget::resizeGL (int width, int height){
 
 void RoverWidget::paintGL(){
 
-	//delete color and depth buffer
 	glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT);
 
 
@@ -38,7 +37,7 @@ void RoverWidget::paintGL(){
 		glTranslatef(0.0f,0.0f,-20.0f);
 		glMultMatrixf(rot.constData());
 
-	/* create 3D-Cube */
+	/* Cube. TODO: model */
 	glBegin(GL_QUADS);
 
 		//front
